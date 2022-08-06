@@ -26,11 +26,15 @@ public class Exercicio1Application {
 
 			var user1 = new User();
 			user1.setName("Frodo Bolseiro");
+			user1.setAge(88);
+			user1.setVatNumber("VF12345");
 			user1.setEmail("frodo.bolsao@email.com");
 
 			var user2 = new User();
-			user1.setName("Samwise Gamgee");
-			user1.setEmail("sam@email.com");
+			user2.setName("Samwise Gamgee");
+			user2.setAge(62);
+			user2.setVatNumber("YH87532");
+			user2.setEmail("sam@email.com");
 
 			userRepository.save(user1);
 			userRepository.save(user2);

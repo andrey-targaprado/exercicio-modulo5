@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 public class UserController {
 
@@ -25,15 +27,23 @@ public class UserController {
     }
 
     @PostMapping({"/user"})
-    public ResponseEntity<Void> userCreate(@RequestBody User user) {
+    public ResponseEntity<Void> userCreate(@Valid @RequestBody User user) {
         userRepository.save(user);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @PutMapping({"/user{id}"})
-    public ResponseEntity<Void> userUpdate(@PathVariable(value="id") long id, @RequestBody User user) {
+    @PutMapping({"/user/{id}"})
+    public ResponseEntity<Void> userUpdate(@PathVariable(value="id") long id, @Valid @RequestBody User user) {
         user.setId(id);
         userRepository.save(user);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @DeleteMapping({"/user/{id}"})
+    public ResponseEntity<Void> userDelete(@PathVariable(value="id") long id) {
+        var user = userRepository.findById(id);
+        LOGGER.info("Usuario removido ::" + user);
+        userRepository.deleteById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }
